@@ -9,6 +9,22 @@ This implementation of Flying Planner uses the library JGraphT for the operation
 ### Part A Implementation
 FlyingPlannerMainPartA Class: This class represents the direct flights between airports and their associated costs in a simple directed graph. The graph consists of 5 airports as vertices, their direct flights as edges and cost as weights of the edges. The user is asked to enter their departure airport. The program changes the input into a specific format and is used to check if it exists in the graph. Program asks to re-enter departure airport if invalid, else proceeds to asking for the destination airport and the whole input validation process is repeated. The cheapest path is found using the Dijkstra's Shortest Path algorithm and presented to the user on the terminal. Additional helper methods such as setVertex(), setEdgeAndWeight() and validInput() reduce code redundancy and are used in the main method.
 
+```java
+The following airports are used:
+-> Edinburgh
+-> Heathrow
+-> Dubai
+-> Kuala Lumpur
+-> Sydney
+
+Enter departure city: Dubai
+Enter destination city: Edinburgh
+
+Shortest and cheapest path:
+1. Dubai -> Edinburgh
+Cost of shortest and cheapest path =  £190.0
+```
+
 ### Part B Implementation
 ***Airport Class*** : This class is used to create an airport object and implements methods from the given interfaces IAirportPartB and IAirportPartC. It contains the name of the airport, the airport code, and the location of the airport. The methods in the interface for Part B set or retrieve these details. A helper method is implemented to get the location of the airport and airport code in a certain format.
 
@@ -19,6 +35,39 @@ FlyingPlannerMainPartA Class: This class represents the direct flights between a
 ***FlyingPlanner Class for Part B*** : This class represents the flight planner. It has a graph of all the airports as vertices and the edges between them as the flight paths. The class has a populate() to add airports and flightsfrom the given data in the dataset folder originating from the Open Flights open-source project. Hash Tables are used to prevent null keys and values (GeeksforGeeks, 2015). Part B requires the implementation of the least-cost method to find the cheapest journey between two airports using Dijkstra’s algorithm by setting the weights of the edges as the total cost. Another feature of this method is the choice of excluding certain airports before finding the most suitable journey. The implementation of this method is performed in the additional method getTrip() which takes the parameters of the leastCost() method and a character ‘C’ to indicate the functionality for the least cost journey. The getTrip() method is used to minimize code redundancy or assist in similar operations. It returns the computed journey.
 
 ***FlyingPlannerMainPartBC Class for Part B*** : This is the main class of the program. It contains the main method to run the interfaces for part B and C. The additional methods are used to assist in the running of the program. The user is prompted with a choice of which part of the program to run. According to the choice, the program will run the corresponding interface. Part B will run the interface for the user to first input the departure and destination airports until a valid code is entered respectively. Then input the choice of mode (i.e., least cost or least hop) to get the journey for their flight plan. The printModes() method displays the modes menu and the checker() method asks the user their input which is then checked with the available modes. The checker looks for the character of available modes present in the user’s input choice, if not present the program asks the user to re-enter. The program will output a visual representation of the found journey in each leg and its details at the end such as total cost, airtime, total time with connecting, and the number of hops. 
+
+```java
+Welcome to the Flying Planner!There are two interfaces:
+-> Part B
+-> Part C
+
+Your choice of convenience: Part B
+
+Enter departure airport code: NCL
+Enter destination airport code: NTL
+
+There are two modes:
+-> Least Cost
+-> Least Hops
+
+Your choice of convenience: Least Cost
+
+Journey for Newcastle Airport (NCL) to Newcastle Airport (NTL)
+
+Leg    Leave               At         On           Arrive               At
+------------------------------------------------------------------------------
+1   Newcastle (NCL)       19:18     KL7893      Amsterdam (AMS)       20:04
+2   Amsterdam (AMS)       07:47     CX0831      Hong Kong (HKG)       17:02
+3   Hong Kong (HKG)       07:48     CX7100      Brisbane (BNE)        14:27
+4   Brisbane (BNE)        16:28     QF0640      Newcastle (NTL)       17:29
+------------------------------------------------------------------------------
+
+Total Journey Cost =  £1035
+Total Time in the Air = 1061 minutes
+Total Time including connecting = 2771 minutes
+Total Number of Hops = 4
+```
+
 
 ### Part C Implementation
 ***Journey duration*** : The implementation of this feature is the completion of the Journey class. The total airtime is calculated in the method airTime() by finding the duration between each flight’s from (departure) and to (destination) times and summing them all together. The connecting time is calculated by finding the duration between each flight’s to time (destination) and the next flight’s from (departure) time and summing them all together. The total trip time is the sum of time spent on the flight (air) and time taken connecting between each flight. This feature is used in the partB() method of the FlyingPlannerMainPartBC class as it is best suited for the part B interface. The helper method getDuration() performs arithmetic on 24-hour clock times and returns in minutes.
